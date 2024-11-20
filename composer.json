@@ -1,47 +1,7 @@
 {
-    "name": "slim/slim",
+    "name": "squille/sln",
     "type": "library",
-    "description": "Slim is a PHP micro framework that helps you quickly write simple yet powerful web applications and APIs",
-    "keywords": ["framework","micro","api","router"],
-    "homepage": "https://www.slimframework.com",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Josh Lockhart",
-            "email": "hello@joshlockhart.com",
-            "homepage": "https://joshlockhart.com"
-        },
-        {
-            "name": "Andrew Smith",
-            "email": "a.smith@silentworks.co.uk",
-            "homepage": "http://silentworks.co.uk"
-        },
-        {
-            "name": "Rob Allen",
-            "email": "rob@akrabat.com",
-            "homepage": "http://akrabat.com"
-        },
-        {
-            "name": "Pierre Berube",
-            "email": "pierre@lgse.com",
-            "homepage": "http://www.lgse.com"
-        },
-        {
-            "name": "Gabriel Manricks",
-            "email": "gmanricks@me.com",
-            "homepage": "http://gabrielmanricks.com"
-        }
-    ],
-    "support": {
-        "docs": "https://www.slimframework.com/docs/v4/",
-        "forum": "https://discourse.slimframework.com/",
-        "irc": "irc://irc.freenode.net:6667/slimphp",
-        "issues": "https://github.com/slimphp/Slim/issues",
-        "rss": "https://www.slimframework.com/blog/feed.rss",
-        "slack": "https://slimphp.slack.com/",
-        "source": "https://github.com/slimphp/Slim",
-        "wiki": "https://github.com/slimphp/Slim/wiki"
-    },
+    "description": "This is a temporary fork of Slim Framework meant to fix some issues with old versions in order to facilitate migration from slim 2 to slim 4",
     "require": {
         "php": "^7.4 || ^8.0",
         "ext-json": "*",
