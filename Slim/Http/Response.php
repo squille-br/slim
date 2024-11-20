@@ -497,9 +497,9 @@ class Response implements \ArrayAccess, \Countable, \IteratorAggregate
      * This returns the contained `\Slim\Http\Headers` instance which
      * is itself iterable.
      *
-     * @return \Slim\Http\Headers
+     * @return \Traversable
      */
-    public function getIterator()
+    public function getIterator(): \Traversable
     {
         return $this->headers->getIterator();
     }
