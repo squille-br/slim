@@ -464,7 +464,7 @@ class Response implements \ArrayAccess, \Countable, \IteratorAggregate
     /**
      * Array Access: Offset Set
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet(mixed $offset, mixed $value): void
     {
         $this->headers[$offset] = $value;
     }
