@@ -472,7 +472,7 @@ class Response implements \ArrayAccess, \Countable, \IteratorAggregate
     /**
      * Array Access: Offset Unset
      */
-    public function offsetUnset($offset)
+    public function offsetUnset(mixed $offset): void
     {
         unset($this->headers[$offset]);
     }
@@ -483,7 +483,7 @@ class Response implements \ArrayAccess, \Countable, \IteratorAggregate
      *
      * Countable: Count
      */
-    public function count()
+    public function count(): int
     {
         return count($this->headers);
     }
