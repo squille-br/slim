@@ -46,18 +46,17 @@ class Util
     /**
      * Strip slashes from string or array
      *
-     * This method strips slashes from its input. By default, this method will only
-     * strip slashes from its input if magic quotes are enabled. Otherwise, you may
-     * override the magic quotes setting with either TRUE or FALSE as the send argument
-     * to force this method to strip or not strip slashes from its input.
+     * This method strips slashes from its input if $overrideStripSlashes is true.
      *
-     * @param  array|string    $rawData
-     * @param  bool            $overrideStripSlashes
+     * @param  array|string $rawData
+     * @param  bool|null    $overrideStripSlashes
      * @return array|string
      */
     public static function stripSlashesIfMagicQuotes($rawData, $overrideStripSlashes = null)
     {
-        $strip = is_null($overrideStripSlashes) ? get_magic_quotes_gpc() : $overrideStripSlashes;
+        // Default to not stripping slashes if no override is provided
+        $strip = $overrideStripSlashes ?? false;
+
         if ($strip) {
             return self::stripSlashes($rawData);
         }
