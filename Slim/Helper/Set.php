@@ -175,7 +175,7 @@ class Set implements \ArrayAccess, \Countable, \IteratorAggregate
      * Array Access
      */
 
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return $this->has($offset);
     }
