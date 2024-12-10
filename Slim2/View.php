@@ -1,13 +1,13 @@
 <?php
 /**
- * Slim - a micro PHP 5 framework
+ * Slim2 - a micro PHP 5 framework
  *
  * @author      Josh Lockhart <info@slimframework.com>
  * @copyright   2011-2017 Josh Lockhart
  * @link        http://www.slimframework.com
  * @license     http://www.slimframework.com/license
  * @version     2.6.4
- * @package     Slim
+ * @package     Slim2
  *
  * MIT LICENSE
  *
@@ -30,20 +30,20 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-namespace Slim;
+namespace Slim2;
 
 /**
  * View
  *
  * The view is responsible for rendering a template. The view
- * should subclass \Slim\View and implement this interface:
+ * should subclass \Slim2\View and implement this interface:
  *
  * public render(string $template);
  *
  * This method should render the specified template and return
  * the resultant string.
  *
- * @package Slim
+ * @package Slim2
  * @author  Josh Lockhart
  * @since   1.0.0
  */
@@ -51,7 +51,7 @@ class View
 {
     /**
      * Data available to the view templates
-     * @var \Slim\Helper\Set
+     * @var \Slim2\Helper\Set
      */
     protected $data;
 
@@ -66,7 +66,7 @@ class View
      */
     public function __construct()
     {
-        $this->data = new \Slim\Helper\Set();
+        $this->data = new \Slim2\Helper\Set();
     }
 
     /********************************************************************************

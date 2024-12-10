@@ -40,7 +40,7 @@ You need **PHP >= 5.3.0**. If you use encrypted cookies, you'll also need the `m
 
 Instantiate a Slim application:
 ```php
-$app = new \Slim\Slim();
+$app = new \Slim2\Slim2();
 ```
 Define a HTTP GET route:
 ```php
@@ -148,7 +148,7 @@ handlers:
 ```
 Next, edit your `index.php` file so Slim knows about the incoming URI:
 ```php
-$app = new Slim();
+$app = new Slim2();
 
 // Google App Engine doesn't set $_SERVER['PATH_INFO']
 $app->environment['PATH_INFO'] = $_SERVER['REQUEST_URI'];

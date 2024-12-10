@@ -1,13 +1,13 @@
 <?php
 /**
- * Slim - a micro PHP 5 framework
+ * Slim2 - a micro PHP 5 framework
  *
  * @author      Josh Lockhart <info@slimframework.com>
  * @copyright   2011-2017 Josh Lockhart
  * @link        http://www.slimframework.com
  * @license     http://www.slimframework.com/license
  * @version     2.6.4
- * @package     Slim
+ * @package     Slim2
  *
  * MIT LICENSE
  *
@@ -30,7 +30,7 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-namespace Slim\Middleware;
+namespace Slim2\Middleware;
 
 /**
  * Pretty Exceptions
@@ -38,11 +38,11 @@ namespace Slim\Middleware;
  * This middleware catches any Exception thrown by the surrounded
  * application and displays a developer-friendly diagnostic screen.
  *
- * @package Slim
+ * @package Slim2
  * @author  Josh Lockhart
  * @since   1.0.0
  */
-class PrettyExceptions extends \Slim\Middleware
+class PrettyExceptions extends \Slim2\Middleware
 {
     /**
      * @var array
@@ -66,7 +66,7 @@ class PrettyExceptions extends \Slim\Middleware
         try {
             $this->next->call();
         } catch (\Exception $e) {
-            $log = $this->app->getLog(); // Force Slim to append log to env if not already
+            $log = $this->app->getLog(); // Force Slim2 to append log to env if not already
             $env = $this->app->environment();
             $env['slim.log'] = $log;
             $env['slim.log']->error($e);
@@ -84,7 +84,7 @@ class PrettyExceptions extends \Slim\Middleware
      */
     protected function renderBody(&$env, $exception)
     {
-        $title = 'Slim Application Error';
+        $title = 'Slim2 Application Error';
         $code = $exception->getCode();
         $message = htmlspecialchars($exception->getMessage());
         $file = $exception->getFile();

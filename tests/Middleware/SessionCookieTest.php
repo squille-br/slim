@@ -1,6 +1,6 @@
 <?php
 /**
- * Slim - a micro PHP 5 framework
+ * Slim2 - a micro PHP 5 framework
  *
  * @author      Josh Lockhart <info@slimframework.com>
  * @copyright   2011-2017 Josh Lockhart
@@ -47,16 +47,16 @@ class SessionCookieTest extends PHPUnit_Framework_TestCase
      */
     public function testSessionCookieIsCreated()
     {
-        \Slim\Environment::mock(array(
+        \Slim2\Environment::mock(array(
             'SCRIPT_NAME' => '/index.php',
             'PATH_INFO' => '/foo'
         ));
-        $app = new \Slim\Slim();
+        $app = new \Slim2\Slim2();
         $app->get('/foo', function () {
             $_SESSION['foo'] = 'bar';
             echo "Success";
         });
-        $mw = new \Slim\Middleware\SessionCookie(array('expires' => '10 years'));
+        $mw = new \Slim2\Middleware\SessionCookie(array('expires' => '10 years'));
         $mw->setApplication($app);
         $mw->setNextMiddleware($app);
         $mw->call();
@@ -75,19 +75,19 @@ class SessionCookieTest extends PHPUnit_Framework_TestCase
      */
     // public function testSessionIsPopulatedFromEncryptedCookie()
     // {
-    //     \Slim\Environment::mock(array(
+    //     \Slim2\Environment::mock(array(
     //         'SCRIPT_NAME' => '/index.php',
     //         'PATH_INFO' => '/foo',
     //         'HTTP_COOKIE' => 'slim_session=1644004961%7CLKkYPwqKIMvBK7MWl6D%2BxeuhLuMaW4quN%2F512ZAaVIY%3D%7Ce0f007fa852c7101e8224bb529e26be4d0dfbd63',
     //     ));
-    //     $app = new \Slim\Slim();
+    //     $app = new \Slim2\Slim2();
     //     // The cookie value in the test is encrypted, so cookies.encrypt must
     //     // be set to true
     //     $app->config('cookies.encrypt', true);
     //     $app->get('/foo', function () {
     //         echo "Success";
     //     });
-    //     $mw = new \Slim\Middleware\SessionCookie(array('expires' => '10 years'));
+    //     $mw = new \Slim2\Middleware\SessionCookie(array('expires' => '10 years'));
     //     $mw->setApplication($app);
     //     $mw->setNextMiddleware($app);
     //     $mw->call();
@@ -102,19 +102,19 @@ class SessionCookieTest extends PHPUnit_Framework_TestCase
      */
     public function testSessionIsPopulatedFromUnencryptedCookie()
     {
-        \Slim\Environment::mock(array(
+        \Slim2\Environment::mock(array(
             'SCRIPT_NAME' => '/index.php',
             'PATH_INFO' => '/foo',
             'HTTP_COOKIE' => 'slim_session={"foo":"bar"}',
         ));
-        $app = new \Slim\Slim();
+        $app = new \Slim2\Slim2();
         // The cookie value in the test is unencrypted, so cookies.encrypt must
         // be set to false
         $app->config('cookies.encrypt', false);
         $app->get('/foo', function () {
             echo "Success";
         });
-        $mw = new \Slim\Middleware\SessionCookie(array('expires' => '10 years'));
+        $mw = new \Slim2\Middleware\SessionCookie(array('expires' => '10 years'));
         $mw->setApplication($app);
         $mw->setNextMiddleware($app);
         $mw->call();
@@ -129,19 +129,19 @@ class SessionCookieTest extends PHPUnit_Framework_TestCase
      */
     public function testSessionIsPopulatedFromMalformedCookieData()
     {
-        \Slim\Environment::mock(array(
+        \Slim2\Environment::mock(array(
             'SCRIPT_NAME' => '/index.php',
             'PATH_INFO' => '/foo',
             'HTTP_COOKIE' => 'slim_session={"foo":"bar"sdkhguy5y}',
         ));
-        $app = new \Slim\Slim();
+        $app = new \Slim2\Slim2();
         // The cookie value in the test is unencrypted, so cookies.encrypt must
         // be set to false
         $app->config('cookies.encrypt', false);
         $app->get('/foo', function () {
             echo "Success";
         });
-        $mw = new \Slim\Middleware\SessionCookie(array('expires' => '10 years'));
+        $mw = new \Slim2\Middleware\SessionCookie(array('expires' => '10 years'));
         $mw->setApplication($app);
         $mw->setNextMiddleware($app);
         $mw->call();
@@ -153,15 +153,15 @@ class SessionCookieTest extends PHPUnit_Framework_TestCase
      */
     public function testSessionIsPopulatedAsEmptyIfNoCookie()
     {
-        \Slim\Environment::mock(array(
+        \Slim2\Environment::mock(array(
             'SCRIPT_NAME' => '/index.php',
             'PATH_INFO' => '/foo'
         ));
-        $app = new \Slim\Slim();
+        $app = new \Slim2\Slim2();
         $app->get('/foo', function () {
             echo "Success";
         });
-        $mw = new \Slim\Middleware\SessionCookie(array('expires' => '10 years'));
+        $mw = new \Slim2\Middleware\SessionCookie(array('expires' => '10 years'));
         $mw->setApplication($app);
         $mw->setNextMiddleware($app);
         $mw->call();
@@ -170,20 +170,20 @@ class SessionCookieTest extends PHPUnit_Framework_TestCase
 
     public function testSerializingTooLongValueWritesLogAndDoesntCreateCookie()
     {
-        \Slim\Environment::mock(array(
+        \Slim2\Environment::mock(array(
             'SCRIPT_NAME' => '/index.php',
             'PATH_INFO' => '/foo'
         ));
 
-        $logWriter = $this->getMockBuilder('Slim\LogWriter')
+        $logWriter = $this->getMockBuilder('Slim2\LogWriter')
             ->disableOriginalConstructor()
             ->getMock();
 
         $logWriter->expects($this->once())
             ->method('write')
-            ->with('WARNING! Slim\Middleware\SessionCookie data size is larger than 4KB. Content save failed.', \Slim\Log::ERROR);
+            ->with('WARNING! Slim2\Middleware\SessionCookie data size is larger than 4KB. Content save failed.', \Slim2\Log::ERROR);
 
-        $app = new \Slim\Slim(array(
+        $app = new \Slim2\Slim2(array(
             'log.writer' => $logWriter
         ));
 
@@ -194,7 +194,7 @@ class SessionCookieTest extends PHPUnit_Framework_TestCase
             echo "Success";
         });
 
-        $mw = new \Slim\Middleware\SessionCookie(array('expires' => '10 years'));
+        $mw = new \Slim2\Middleware\SessionCookie(array('expires' => '10 years'));
         $mw->setApplication($app);
         $mw->setNextMiddleware($app);
         $mw->call();

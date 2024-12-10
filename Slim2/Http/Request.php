@@ -1,13 +1,13 @@
 <?php
 /**
- * Slim - a micro PHP 5 framework
+ * Slim2 - a micro PHP 5 framework
  *
  * @author      Josh Lockhart <info@slimframework.com>
  * @copyright   2011-2017 Josh Lockhart
  * @link        http://www.slimframework.com
  * @license     http://www.slimframework.com/license
  * @version     2.6.4
- * @package     Slim
+ * @package     Slim2
  *
  * MIT LICENSE
  *
@@ -30,15 +30,15 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-namespace Slim\Http;
+namespace Slim2\Http;
 
 /**
- * Slim HTTP Request
+ * Slim2 HTTP Request
  *
- * This class provides a human-friendly interface to the Slim environment variables;
+ * This class provides a human-friendly interface to the Slim2 environment variables;
  * environment variables are passed by reference and will be modified directly.
  *
- * @package Slim
+ * @package Slim2
  * @author  Josh Lockhart
  * @since   1.0.0
  */
@@ -60,31 +60,31 @@ class Request
 
     /**
      * Application Environment
-     * @var \Slim\Environment
+     * @var \Slim2\Environment
      */
     protected $env;
 
     /**
      * HTTP Headers
-     * @var \Slim\Http\Headers
+     * @var \Slim2\Http\Headers
      */
     public $headers;
 
     /**
      * HTTP Cookies
-     * @var \Slim\Helper\Set
+     * @var \Slim2\Helper\Set
      */
     public $cookies;
 
     /**
      * Constructor
-     * @param \Slim\Environment $env
+     * @param \Slim2\Environment $env
      */
-    public function __construct(\Slim\Environment $env)
+    public function __construct(\Slim2\Environment $env)
     {
         $this->env = $env;
-        $this->headers = new \Slim\Http\Headers(\Slim\Http\Headers::extract($env));
-        $this->cookies = new \Slim\Helper\Set(\Slim\Http\Util::parseCookieHeader($env['HTTP_COOKIE']));
+        $this->headers = new \Slim2\Http\Headers(\Slim2\Http\Headers::extract($env));
+        $this->cookies = new \Slim2\Helper\Set(\Slim2\Http\Util::parseCookieHeader($env['HTTP_COOKIE']));
     }
 
     /**
@@ -278,7 +278,7 @@ class Request
     }
 
     /**
-     * Fetch PUT data (alias for \Slim\Http\Request::post)
+     * Fetch PUT data (alias for \Slim2\Http\Request::post)
      * @param  string           $key
      * @param  mixed            $default Default return value when key does not exist
      * @return array|mixed|null
@@ -289,7 +289,7 @@ class Request
     }
 
     /**
-     * Fetch PATCH data (alias for \Slim\Http\Request::post)
+     * Fetch PATCH data (alias for \Slim2\Http\Request::post)
      * @param  string           $key
      * @param  mixed            $default Default return value when key does not exist
      * @return array|mixed|null
@@ -300,7 +300,7 @@ class Request
     }
 
     /**
-     * Fetch DELETE data (alias for \Slim\Http\Request::post)
+     * Fetch DELETE data (alias for \Slim2\Http\Request::post)
      * @param  string           $key
      * @param  mixed            $default Default return value when key does not exist
      * @return array|mixed|null

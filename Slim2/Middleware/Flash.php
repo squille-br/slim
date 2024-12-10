@@ -1,13 +1,13 @@
 <?php
 /**
- * Slim - a micro PHP 5 framework
+ * Slim2 - a micro PHP 5 framework
  *
  * @author      Josh Lockhart <info@slimframework.com>
  * @copyright   2011-2017 Josh Lockhart
  * @link        http://www.slimframework.com
  * @license     http://www.slimframework.com/license
  * @version     2.6.4
- * @package     Slim
+ * @package     Slim2
  *
  * MIT LICENSE
  *
@@ -30,22 +30,22 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-namespace Slim\Middleware;
+namespace Slim2\Middleware;
 
  /**
   * Flash
   *
-  * This is middleware for a Slim application that enables
+  * This is middleware for a Slim2 application that enables
   * Flash messaging between HTTP requests. This allows you
   * set Flash messages for the current request, for the next request,
   * or to retain messages from the previous request through to
   * the next request.
   *
-  * @package    Slim
+  * @package    Slim2
   * @author     Josh Lockhart
   * @since      1.6.0
   */
-class Flash extends \Slim\Middleware implements \ArrayAccess, \IteratorAggregate, \Countable
+class Flash extends \Slim2\Middleware implements \ArrayAccess, \IteratorAggregate, \Countable
 {
     /**
      * @var array

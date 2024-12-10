@@ -1,13 +1,13 @@
 <?php
 /**
- * Slim - a micro PHP 5 framework
+ * Slim2 - a micro PHP 5 framework
  *
  * @author      Josh Lockhart <info@slimframework.com>
  * @copyright   2011-2017 Josh Lockhart
  * @link        http://www.slimframework.com
  * @license     http://www.slimframework.com/license
  * @version     2.6.4
- * @package     Slim
+ * @package     Slim2
  *
  * MIT LICENSE
  *
@@ -30,19 +30,19 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-namespace Slim;
+namespace Slim2;
 
 /**
  * Middleware
  *
- * @package Slim
+ * @package Slim2
  * @author  Josh Lockhart
  * @since   1.6.0
  */
 abstract class Middleware
 {
     /**
-     * @var \Slim\Slim Reference to the primary application instance
+     * @var \Slim2\Slim2 Reference to the primary application instance
      */
     protected $app;
 
@@ -54,10 +54,10 @@ abstract class Middleware
     /**
      * Set application
      *
-     * This method injects the primary Slim application instance into
+     * This method injects the primary Slim2 application instance into
      * this middleware.
      *
-     * @param  \Slim\Slim $application
+     * @param  \Slim2\Slim2 $application
      */
     final public function setApplication($application)
     {
@@ -70,7 +70,7 @@ abstract class Middleware
      * This method retrieves the application previously injected
      * into this middleware.
      *
-     * @return \Slim\Slim
+     * @return \Slim2\Slim2
      */
     final public function getApplication()
     {
@@ -84,7 +84,7 @@ abstract class Middleware
      * this middleware so that it may optionally be called
      * when appropriate.
      *
-     * @param \Slim|\Slim\Middleware
+     * @param \Slim2|\Slim2\Middleware
      */
     final public function setNextMiddleware($nextMiddleware)
     {
@@ -97,7 +97,7 @@ abstract class Middleware
      * This method retrieves the next downstream middleware
      * previously injected into this middleware.
      *
-     * @return \Slim\Slim|\Slim\Middleware
+     * @return \Slim2\Slim2|\Slim2\Middleware
      */
     final public function getNextMiddleware()
     {

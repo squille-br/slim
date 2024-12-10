@@ -1,13 +1,13 @@
 <?php
 /**
- * Slim - a micro PHP 5 framework
+ * Slim2 - a micro PHP 5 framework
  *
  * @author      Josh Lockhart <info@slimframework.com>
  * @copyright   2011-2017 Josh Lockhart
  * @link        http://www.slimframework.com
  * @license     http://www.slimframework.com/license
  * @version     2.6.4
- * @package     Slim
+ * @package     Slim2
  *
  * MIT LICENSE
  *
@@ -30,7 +30,7 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-namespace Slim\Http;
+namespace Slim2\Http;
 
 /**
  * Response
@@ -39,7 +39,7 @@ namespace Slim\Http;
  * provides methods to set the HTTP status, the HTTP headers,
  * and the HTTP body.
  *
- * @package Slim
+ * @package Slim2
  * @author  Josh Lockhart
  * @since   1.0.0
  */
@@ -51,12 +51,12 @@ class Response implements \ArrayAccess, \Countable, \IteratorAggregate
     protected $status;
 
     /**
-     * @var \Slim\Http\Headers
+     * @var \Slim2\Http\Headers
      */
     public $headers;
 
     /**
-     * @var \Slim\Http\Cookies
+     * @var \Slim2\Http\Cookies
      */
     public $cookies;
 
@@ -137,14 +137,14 @@ class Response implements \ArrayAccess, \Countable, \IteratorAggregate
      * Constructor
      * @param string                   $body   The HTTP response body
      * @param int                      $status The HTTP response status
-     * @param \Slim\Http\Headers|array $headers The HTTP response headers
+     * @param \Slim2\Http\Headers|array $headers The HTTP response headers
      */
     public function __construct($body = '', $status = 200, $headers = array())
     {
         $this->setStatus($status);
-        $this->headers = new \Slim\Http\Headers(array('Content-Type' => 'text/html'));
+        $this->headers = new \Slim2\Http\Headers(array('Content-Type' => 'text/html'));
         $this->headers->replace($headers);
-        $this->cookies = new \Slim\Http\Cookies();
+        $this->cookies = new \Slim2\Http\Cookies();
         $this->write($body);
     }
 
@@ -195,7 +195,7 @@ class Response implements \ArrayAccess, \Countable, \IteratorAggregate
      * DEPRECATION WARNING! Access `headers` property directly.
      *
      * Get headers
-     * @return \Slim\Http\Headers
+     * @return \Slim2\Http\Headers
      */
     public function headers()
     {
@@ -272,7 +272,7 @@ class Response implements \ArrayAccess, \Countable, \IteratorAggregate
      *
      * This prepares this response and returns an array
      * of [status, headers, body]. This array is passed to outer middleware
-     * if available or directly to the Slim run method.
+     * if available or directly to the Slim2 run method.
      *
      * @return array[int status, array headers, string body]
      */
@@ -293,10 +293,10 @@ class Response implements \ArrayAccess, \Countable, \IteratorAggregate
      *
      * Set cookie
      *
-     * Instead of using PHP's `setcookie()` function, Slim manually constructs the HTTP `Set-Cookie`
+     * Instead of using PHP's `setcookie()` function, Slim2 manually constructs the HTTP `Set-Cookie`
      * header on its own and delegates this responsibility to the `Slim_Http_Util` class. This
      * response's header is passed by reference to the utility class and is directly modified. By not
-     * relying on PHP's native implementation, Slim allows middleware the opportunity to massage or
+     * relying on PHP's native implementation, Slim2 allows middleware the opportunity to massage or
      * analyze the raw header before the response is ultimately delivered to the HTTP client.
      *
      * @param string        $name    The name of the cookie
@@ -314,10 +314,10 @@ class Response implements \ArrayAccess, \Countable, \IteratorAggregate
      *
      * Delete cookie
      *
-     * Instead of using PHP's `setcookie()` function, Slim manually constructs the HTTP `Set-Cookie`
+     * Instead of using PHP's `setcookie()` function, Slim2 manually constructs the HTTP `Set-Cookie`
      * header on its own and delegates this responsibility to the `Slim_Http_Util` class. This
      * response's header is passed by reference to the utility class and is directly modified. By not
-     * relying on PHP's native implementation, Slim allows middleware the opportunity to massage or
+     * relying on PHP's native implementation, Slim2 allows middleware the opportunity to massage or
      * analyze the raw header before the response is ultimately delivered to the HTTP client.
      *
      * This method will set a cookie with the given name that has an expiration time in the past; this will
@@ -441,7 +441,7 @@ class Response implements \ArrayAccess, \Countable, \IteratorAggregate
     }
 
     /**
-     * DEPRECATION WARNING! ArrayAccess interface will be removed from \Slim\Http\Response.
+     * DEPRECATION WARNING! ArrayAccess interface will be removed from \Slim2\Http\Response.
      * Iterate `headers` or `cookies` properties directly.
      */
 
@@ -478,7 +478,7 @@ class Response implements \ArrayAccess, \Countable, \IteratorAggregate
     }
 
     /**
-     * DEPRECATION WARNING! Countable interface will be removed from \Slim\Http\Response.
+     * DEPRECATION WARNING! Countable interface will be removed from \Slim2\Http\Response.
      * Call `count` on `headers` or `cookies` properties directly.
      *
      * Countable: Count
@@ -489,12 +489,12 @@ class Response implements \ArrayAccess, \Countable, \IteratorAggregate
     }
 
     /**
-     * DEPRECATION WARNING! IteratorAggregate interface will be removed from \Slim\Http\Response.
+     * DEPRECATION WARNING! IteratorAggregate interface will be removed from \Slim2\Http\Response.
      * Iterate `headers` or `cookies` properties directly.
      *
      * Get Iterator
      *
-     * This returns the contained `\Slim\Http\Headers` instance which
+     * This returns the contained `\Slim2\Http\Headers` instance which
      * is itself iterable.
      *
      * @return \Traversable

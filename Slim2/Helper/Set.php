@@ -1,13 +1,13 @@
 <?php
 /**
- * Slim - a micro PHP 5 framework
+ * Slim2 - a micro PHP 5 framework
  *
  * @author      Josh Lockhart <info@slimframework.com>
  * @copyright   2011-2017 Josh Lockhart
  * @link        http://www.slimframework.com
  * @license     http://www.slimframework.com/license
  * @version     2.6.4
- * @package     Slim
+ * @package     Slim2
  *
  * MIT LICENSE
  *
@@ -30,7 +30,7 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-namespace Slim\Helper;
+namespace Slim2\Helper;
 
 class Set implements \ArrayAccess, \Countable, \IteratorAggregate
 {
@@ -54,7 +54,7 @@ class Set implements \ArrayAccess, \Countable, \IteratorAggregate
      *
      * Used to transform data key into the necessary
      * key format for this set. Used in subclasses
-     * like \Slim\Http\Headers.
+     * like \Slim2\Http\Headers.
      *
      * @param  string $key The data key
      * @return mixed       The transformed/normalized data key

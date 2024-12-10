@@ -1,13 +1,13 @@
 <?php
 /**
- * Slim - a micro PHP 5 framework
+ * Slim2 - a micro PHP 5 framework
  *
  * @author      Josh Lockhart <info@slimframework.com>
  * @copyright   2011-2017 Josh Lockhart
  * @link        http://www.slimframework.com
  * @license     http://www.slimframework.com/license
  * @version     2.6.4
- * @package     Slim
+ * @package     Slim2
  *
  * MIT LICENSE
  *
@@ -30,7 +30,7 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-namespace Slim;
+namespace Slim2;
 
 /**
  * Environment
@@ -39,12 +39,12 @@ namespace Slim;
  * environment variables for the current HTTP request.
  *
  * This is a singleton class; derived environment variables will
- * be common across multiple Slim applications.
+ * be common across multiple Slim2 applications.
  *
  * This class matches the Rack (Ruby) specification as closely
  * as possible. More information available below.
  *
- * @package Slim
+ * @package Slim2
  * @author  Josh Lockhart
  * @since   1.6.0
  */
@@ -56,7 +56,7 @@ class Environment implements \ArrayAccess, \IteratorAggregate
     protected $properties;
 
     /**
-     * @var \Slim\Environment
+     * @var \Slim2\Environment
      */
     protected static $environment;
 
@@ -65,10 +65,10 @@ class Environment implements \ArrayAccess, \IteratorAggregate
      *
      * This creates and/or returns an environment instance (singleton)
      * derived from $_SERVER variables. You may override the global server
-     * variables by using `\Slim\Environment::mock()` instead.
+     * variables by using `\Slim2\Environment::mock()` instead.
      *
      * @param  bool             $refresh Refresh properties using global server variables?
-     * @return \Slim\Environment
+     * @return \Slim2\Environment
      */
     public static function getInstance($refresh = false)
     {
@@ -83,7 +83,7 @@ class Environment implements \ArrayAccess, \IteratorAggregate
      * Get mock environment instance
      *
      * @param  array       $userSettings
-     * @return \Slim\Environment
+     * @return \Slim2\Environment
      */
     public static function mock($userSettings = array())
     {
@@ -97,7 +97,7 @@ class Environment implements \ArrayAccess, \IteratorAggregate
             'ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
             'ACCEPT_LANGUAGE' => 'en-US,en;q=0.8',
             'ACCEPT_CHARSET' => 'ISO-8859-1,utf-8;q=0.7,*;q=0.3',
-            'USER_AGENT' => 'Slim Framework',
+            'USER_AGENT' => 'Slim2 Framework',
             'REMOTE_ADDR' => '127.0.0.1',
             'slim.url_scheme' => 'http',
             'slim.input' => '',
@@ -154,11 +154,11 @@ class Environment implements \ArrayAccess, \IteratorAggregate
             $env['SERVER_NAME'] = $_SERVER['SERVER_NAME'];
 
             //Number of server port that is running the script
-            //Fixes: https://github.com/slimphp/Slim/issues/962
+            //Fixes: https://github.com/slimphp/Slim2/issues/962
             $env['SERVER_PORT'] = isset($_SERVER['SERVER_PORT']) ? $_SERVER['SERVER_PORT'] : 80;
 
             //HTTP request headers (retains HTTP_ prefix to match $_SERVER)
-            $headers = \Slim\Http\Headers::extract($_SERVER);
+            $headers = \Slim2\Http\Headers::extract($_SERVER);
             foreach ($headers as $key => $value) {
                 $env[$key] = $value;
             }

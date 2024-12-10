@@ -1,13 +1,13 @@
 <?php
 /**
- * Slim - a micro PHP 5 framework
+ * Slim2 - a micro PHP 5 framework
  *
  * @author      Josh Lockhart <info@slimframework.com>
  * @copyright   2011-2017 Josh Lockhart
  * @link        http://www.slimframework.com
  * @license     http://www.slimframework.com/license
  * @version     2.6.4
- * @package     Slim
+ * @package     Slim2
  *
  * MIT LICENSE
  *
@@ -30,14 +30,14 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-namespace Slim\Http;
+namespace Slim2\Http;
 
 /**
- * Slim HTTP Utilities
+ * Slim2 HTTP Utilities
  *
  * This class provides useful methods for handling HTTP requests.
  *
- * @package Slim
+ * @package Slim2
  * @author  Josh Lockhart
  * @since   1.0.0
  */
@@ -177,11 +177,11 @@ class Util
 
     /**
      * Serialize Response cookies into raw HTTP header
-     * @param  \Slim\Http\Headers $headers The Response headers
-     * @param  \Slim\Http\Cookies $cookies The Response cookies
-     * @param  array              $config  The Slim app settings
+     * @param  \Slim2\Http\Headers $headers The Response headers
+     * @param  \Slim2\Http\Cookies $cookies The Response cookies
+     * @param  array              $config  The Slim2 app settings
      */
-    public static function serializeCookies(\Slim\Http\Headers &$headers, \Slim\Http\Cookies $cookies, array $config)
+    public static function serializeCookies(\Slim2\Http\Headers &$headers, \Slim2\Http\Cookies $cookies, array $config)
     {
         if ($config['cookies.encrypt']) {
             foreach ($cookies as $name => $settings) {
@@ -283,7 +283,7 @@ class Util
     /**
      * Set HTTP cookie header
      *
-     * This method will construct and set the HTTP `Set-Cookie` header. Slim
+     * This method will construct and set the HTTP `Set-Cookie` header. Slim2
      * uses this method instead of PHP's native `setcookie` method. This allows
      * more control of the HTTP header irrespective of the native implementation's
      * dependency on PHP versions.
@@ -345,7 +345,7 @@ class Util
      *
      * This method will construct and set the HTTP `Set-Cookie` header to invalidate
      * a client-side HTTP cookie. If a cookie with the same name (and, optionally, domain)
-     * is already set in the HTTP response, it will also be removed. Slim uses this method
+     * is already set in the HTTP response, it will also be removed. Slim2 uses this method
      * instead of PHP's native `setcookie` method. This allows more control of the HTTP header
      * irrespective of PHP's native implementation's dependency on PHP versions.
      *

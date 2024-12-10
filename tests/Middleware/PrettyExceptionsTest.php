@@ -1,6 +1,6 @@
 <?php
 /**
- * Slim - a micro PHP 5 framework
+ * Slim2 - a micro PHP 5 framework
  *
  * @author      Josh Lockhart <info@slimframework.com>
  * @copyright   2011-2017 Josh Lockhart
@@ -37,15 +37,15 @@ class PrettyExceptionsTest extends PHPUnit_Framework_TestCase
      */
     public function testReturnsUnchangedSuccessResponse()
     {
-        \Slim\Environment::mock(array(
+        \Slim2\Environment::mock(array(
             'SCRIPT_NAME' => '/index.php',
             'PATH_INFO' => '/foo'
         ));
-        $app = new \Slim\Slim();
+        $app = new \Slim2\Slim2();
         $app->get('/foo', function () {
             echo "Success";
         });
-        $mw = new \Slim\Middleware\PrettyExceptions();
+        $mw = new \Slim2\Middleware\PrettyExceptions();
         $mw->setApplication($app);
         $mw->setNextMiddleware($app);
         $mw->call();
@@ -58,21 +58,21 @@ class PrettyExceptionsTest extends PHPUnit_Framework_TestCase
      */
     public function testReturnsDiagnosticsForErrorResponse()
     {
-        \Slim\Environment::mock(array(
+        \Slim2\Environment::mock(array(
             'SCRIPT_NAME' => '/index.php',
             'PATH_INFO' => '/foo'
         ));
-        $app = new \Slim\Slim(array(
+        $app = new \Slim2\Slim2(array(
             'log.enabled' => false
         ));
         $app->get('/foo', function () {
             throw new \Exception('Test Message', 100);
         });
-        $mw = new \Slim\Middleware\PrettyExceptions();
+        $mw = new \Slim2\Middleware\PrettyExceptions();
         $mw->setApplication($app);
         $mw->setNextMiddleware($app);
         $mw->call();
-        $this->assertEquals(1, preg_match('@Slim Application Error@', $app->response()->body()));
+        $this->assertEquals(1, preg_match('@Slim2 Application Error@', $app->response()->body()));
         $this->assertEquals(500, $app->response()->status());
     }
 
@@ -81,18 +81,18 @@ class PrettyExceptionsTest extends PHPUnit_Framework_TestCase
      */
     public function testResponseContentTypeIsOverriddenToHtml()
     {
-        \Slim\Environment::mock(array(
+        \Slim2\Environment::mock(array(
             'SCRIPT_NAME' => '/index.php',
             'PATH_INFO' => '/foo'
         ));
-        $app = new \Slim\Slim(array(
+        $app = new \Slim2\Slim2(array(
             'log.enabled' => false
         ));
         $app->get('/foo', function () use ($app) {
             $app->contentType('application/json;charset=utf-8'); //<-- set content type to something else
             throw new \Exception('Test Message', 100);
         });
-        $mw = new \Slim\Middleware\PrettyExceptions();
+        $mw = new \Slim2\Middleware\PrettyExceptions();
         $mw->setApplication($app);
         $mw->setNextMiddleware($app);
         $mw->call();
@@ -105,17 +105,17 @@ class PrettyExceptionsTest extends PHPUnit_Framework_TestCase
      */
     public function testExceptionTypeIsInResponseBody()
     {
-        \Slim\Environment::mock(array(
+        \Slim2\Environment::mock(array(
             'SCRIPT_NAME' => '/index.php',
             'PATH_INFO' => '/foo'
         ));
-        $app = new \Slim\Slim(array(
+        $app = new \Slim2\Slim2(array(
             'log.enabled' => false
         ));
         $app->get('/foo', function () use ($app) {
             throw new \LogicException('Test Message', 100);
         });
-        $mw = new \Slim\Middleware\PrettyExceptions();
+        $mw = new \Slim2\Middleware\PrettyExceptions();
         $mw->setApplication($app);
         $mw->setNextMiddleware($app);
         $mw->call();
@@ -130,20 +130,20 @@ class PrettyExceptionsTest extends PHPUnit_Framework_TestCase
     {
         $this->setExpectedException('\LogicException');
 
-        \Slim\Environment::mock(array(
+        \Slim2\Environment::mock(array(
             'SCRIPT_NAME' => '/index.php',
             'PATH_INFO' => '/foo'
         ));
-        $app = new \Slim\Slim(array(
+        $app = new \Slim2\Slim2(array(
             'log.enabled' => false
         ));
         $app->container->singleton('log', function () use ($app) {
-            return new \Slim\Log(new \Slim\LogWriter('php://temp'));
+            return new \Slim2\Log(new \Slim2\LogWriter('php://temp'));
         });
         $app->get('/foo', function () use ($app) {
             throw new \LogicException('Test Message', 100);
         });
-        $mw = new \Slim\Middleware\PrettyExceptions();
+        $mw = new \Slim2\Middleware\PrettyExceptions();
         $mw->setApplication($app);
         $mw->setNextMiddleware($app);
         $mw->call();

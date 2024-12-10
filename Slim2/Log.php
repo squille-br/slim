@@ -1,13 +1,13 @@
 <?php
 /**
- * Slim - a micro PHP 5 framework
+ * Slim2 - a micro PHP 5 framework
  *
  * @author      Josh Lockhart <info@slimframework.com>
  * @copyright   2011-2017 Josh Lockhart
  * @link        http://www.slimframework.com
  * @license     http://www.slimframework.com/license
  * @version     2.6.4
- * @package     Slim
+ * @package     Slim2
  *
  * MIT LICENSE
  *
@@ -30,12 +30,12 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-namespace Slim;
+namespace Slim2;
 
 /**
  * Log
  *
- * This is the primary logger for a Slim application. You may provide
+ * This is the primary logger for a Slim2 application. You may provide
  * a Log Writer in conjunction with this Log to write to various output
  * destinations (e.g. a file). This class provides this interface:
  *
@@ -54,7 +54,7 @@ namespace Slim;
  * class may write or send its argument anywhere: a file, STDERR,
  * a remote web API, etc. The possibilities are endless.
  *
- * @package Slim
+ * @package Slim2
  * @author  Josh Lockhart
  * @since   1.0.0
  */

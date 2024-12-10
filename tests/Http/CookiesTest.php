@@ -1,6 +1,6 @@
 <?php
 /**
- * Slim - a micro PHP 5 framework
+ * Slim2 - a micro PHP 5 framework
  *
  * @author      Josh Lockhart <info@slimframework.com>
  * @copyright   2011-2017 Josh Lockhart
@@ -33,7 +33,7 @@ class CookiesTest extends PHPUnit_Framework_TestCase
 {
     public function testSetWithStringValue()
     {
-        $c = new \Slim\Http\Cookies();
+        $c = new \Slim2\Http\Cookies();
         $c->set('foo', 'bar');
         $this->assertAttributeEquals(
             array(
@@ -54,7 +54,7 @@ class CookiesTest extends PHPUnit_Framework_TestCase
     public function testSetWithArrayValue()
     {
         $now = time();
-        $c = new \Slim\Http\Cookies();
+        $c = new \Slim2\Http\Cookies();
         $c->set('foo', array(
             'value' => 'bar',
             'expires' => $now + 86400,
@@ -81,7 +81,7 @@ class CookiesTest extends PHPUnit_Framework_TestCase
 
     public function testRemove()
     {
-        $c = new \Slim\Http\Cookies();
+        $c = new \Slim2\Http\Cookies();
         $c->remove('foo');
         $prop = new \ReflectionProperty($c, 'data');
         $prop->setAccessible(true);

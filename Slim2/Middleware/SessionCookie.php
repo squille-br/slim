@@ -1,13 +1,13 @@
 <?php
 /**
- * Slim - a micro PHP 5 framework
+ * Slim2 - a micro PHP 5 framework
  *
  * @author      Josh Lockhart <info@slimframework.com>
  * @copyright   2011-2017 Josh Lockhart
  * @link        http://www.slimframework.com
  * @license     http://www.slimframework.com/license
  * @version     2.6.4
- * @package     Slim
+ * @package     Slim2
  *
  * MIT LICENSE
  *
@@ -30,7 +30,7 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-namespace Slim\Middleware;
+namespace Slim2\Middleware;
 
 /**
  * Session Cookie
@@ -50,11 +50,11 @@ namespace Slim\Middleware;
  * you are inherently limited to 4 Kb. If you attempt to store
  * more than this amount, serialization will fail.
  *
- * @package     Slim
+ * @package     Slim2
  * @author     Josh Lockhart
  * @since      1.6.0
  */
-class SessionCookie extends \Slim\Middleware
+class SessionCookie extends \Slim2\Middleware
 {
     /**
      * @var array
@@ -136,7 +136,7 @@ class SessionCookie extends \Slim\Middleware
         $value = json_encode($_SESSION);
 
         if (strlen($value) > 4096) {
-            $this->app->getLog()->error('WARNING! Slim\Middleware\SessionCookie data size is larger than 4KB. Content save failed.');
+            $this->app->getLog()->error('WARNING! Slim2\Middleware\SessionCookie data size is larger than 4KB. Content save failed.');
         } else {
             $this->app->setCookie(
                 $this->settings['name'],

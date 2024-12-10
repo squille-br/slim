@@ -1,13 +1,13 @@
 <?php
 /**
- * Slim - a micro PHP 5 framework
+ * Slim2 - a micro PHP 5 framework
  *
  * @author      Josh Lockhart <info@slimframework.com>
  * @copyright   2011-2017 Josh Lockhart
  * @link        http://www.slimframework.com
  * @license     http://www.slimframework.com/license
  * @version     2.6.4
- * @package     Slim
+ * @package     Slim2
  *
  * MIT LICENSE
  *
@@ -30,24 +30,24 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-namespace Slim;
+namespace Slim2;
 
 // Ensure mcrypt constants are defined even if mcrypt extension is not loaded
 if (!defined('MCRYPT_MODE_CBC')) define('MCRYPT_MODE_CBC', 0);
 if (!defined('MCRYPT_RIJNDAEL_256')) define('MCRYPT_RIJNDAEL_256', 0);
 
 /**
- * Slim
- * @package  Slim
+ * Slim2
+ * @package  Slim2
  * @author   Josh Lockhart
  * @since    1.0.0
  *
- * @property \Slim\Environment   $environment
- * @property \Slim\Http\Response $response
- * @property \Slim\Http\Request  $request
- * @property \Slim\Router        $router
+ * @property \Slim2\Environment   $environment
+ * @property \Slim2\Http\Response $response
+ * @property \Slim2\Http\Request  $request
+ * @property \Slim2\Router        $router
  */
-class Slim
+class Slim2
 {
     /**
      * @const string
@@ -55,12 +55,12 @@ class Slim
     const VERSION = '2.6.4-dev';
 
     /**
-     * @var \Slim\Helper\Set
+     * @var \Slim2\Helper\Set
      */
     public $container;
 
     /**
-     * @var array[\Slim]
+     * @var array[\Slim2]
      */
     protected static $apps = array();
 
@@ -103,7 +103,7 @@ class Slim
     *******************************************************************************/
 
     /**
-     * Slim PSR-0 autoloader
+     * Slim2 PSR-0 autoloader
      */
     public static function autoload($className)
     {
@@ -131,11 +131,11 @@ class Slim
     }
 
     /**
-     * Register Slim's PSR-0 autoloader
+     * Register Slim2's PSR-0 autoloader
      */
     public static function registerAutoloader()
     {
-        spl_autoload_register(__NAMESPACE__ . "\\Slim::autoload");
+        spl_autoload_register(__NAMESPACE__ . "\\Slim2::autoload");
     }
 
     /********************************************************************************
@@ -149,27 +149,27 @@ class Slim
     public function __construct(array $userSettings = array())
     {
         // Setup IoC container
-        $this->container = new \Slim\Helper\Set();
+        $this->container = new \Slim2\Helper\Set();
         $this->container['settings'] = array_merge(static::getDefaultSettings(), $userSettings);
 
         // Default environment
         $this->container->singleton('environment', function ($c) {
-            return \Slim\Environment::getInstance();
+            return \Slim2\Environment::getInstance();
         });
 
         // Default request
         $this->container->singleton('request', function ($c) {
-            return new \Slim\Http\Request($c['environment']);
+            return new \Slim2\Http\Request($c['environment']);
         });
 
         // Default response
         $this->container->singleton('response', function ($c) {
-            return new \Slim\Http\Response();
+            return new \Slim2\Http\Response();
         });
 
         // Default router
         $this->container->singleton('router', function ($c) {
-            return new \Slim\Router();
+            return new \Slim2\Router();
         });
 
         // Default view
@@ -177,7 +177,7 @@ class Slim
             $viewClass = $c['settings']['view'];
             $templatesPath = $c['settings']['templates.path'];
 
-            $view = ($viewClass instanceOf \Slim\View) ? $viewClass : new $viewClass;
+            $view = ($viewClass instanceOf \Slim2\View) ? $viewClass : new $viewClass;
             $view->setTemplatesDirectory($templatesPath);
             return $view;
         });
@@ -186,12 +186,12 @@ class Slim
         $this->container->singleton('logWriter', function ($c) {
             $logWriter = $c['settings']['log.writer'];
 
-            return is_object($logWriter) ? $logWriter : new \Slim\LogWriter($c['environment']['slim.errors']);
+            return is_object($logWriter) ? $logWriter : new \Slim2\LogWriter($c['environment']['slim.errors']);
         });
 
         // Default log
         $this->container->singleton('log', function ($c) {
-            $log = new \Slim\Log($c['logWriter']);
+            $log = new \Slim2\Log($c['logWriter']);
             $log->setEnabled($c['settings']['log.enabled']);
             $log->setLevel($c['settings']['log.level']);
             $env = $c['environment'];
@@ -218,8 +218,8 @@ class Slim
 
         // Define default middleware stack
         $this->middleware = array($this);
-        $this->add(new \Slim\Middleware\Flash());
-        $this->add(new \Slim\Middleware\MethodOverride());
+        $this->add(new \Slim2\Middleware\Flash());
+        $this->add(new \Slim2\Middleware\MethodOverride());
 
         // Make default if first instance
         if (is_null(static::getInstance())) {
@@ -249,8 +249,8 @@ class Slim
 
     /**
      * Get application instance by name
-     * @param  string    $name The name of the Slim application
-     * @return \Slim\Slim|null
+     * @param  string    $name The name of the Slim2 application
+     * @return \Slim2\Slim2|null
      */
     public static function getInstance($name = 'default')
     {
@@ -258,8 +258,8 @@ class Slim
     }
 
     /**
-     * Set Slim application name
-     * @param  string $name The name of this Slim application
+     * Set Slim2 application name
+     * @param  string $name The name of this Slim2 application
      */
     public function setName($name)
     {
@@ -268,7 +268,7 @@ class Slim
     }
 
     /**
-     * Get Slim application name
+     * Get Slim2 application name
      * @return string|null
      */
     public function getName()
@@ -289,11 +289,11 @@ class Slim
             'debug' => true,
             // Logging
             'log.writer' => null,
-            'log.level' => \Slim\Log::DEBUG,
+            'log.level' => \Slim2\Log::DEBUG,
             'log.enabled' => true,
             // View
             'templates.path' => './templates',
-            'view' => '\Slim\View',
+            'view' => '\Slim2\View',
             // Cookies
             'cookies.encrypt' => false,
             'cookies.lifetime' => '20 minutes',
@@ -313,7 +313,7 @@ class Slim
     }
 
     /**
-     * Configure Slim Settings
+     * Configure Slim2 Settings
      *
      * This method defines application settings and acts as a setter and a getter.
      *
@@ -369,12 +369,12 @@ class Slim
     }
 
     /**
-     * Configure Slim for a given mode
+     * Configure Slim2 for a given mode
      *
      * This method will immediately invoke the callable if
      * the specified mode matches the current application mode.
      * Otherwise, the callable is ignored. This should be called
-     * only _after_ you initialize your Slim app.
+     * only _after_ you initialize your Slim2 app.
      *
      * @param  string $mode
      * @param  mixed  $callable
@@ -393,7 +393,7 @@ class Slim
 
     /**
      * Get application log
-     * @return \Slim\Log
+     * @return \Slim2\Log
      */
     public function getLog()
     {
@@ -429,16 +429,16 @@ class Slim
      *
      * USAGE:
      *
-     * Slim::get('/foo'[, middleware, middleware, ...], callable);
+     * Slim2::get('/foo'[, middleware, middleware, ...], callable);
      *
      * @param   array (See notes above)
-     * @return  \Slim\Route
+     * @return  \Slim2\Route
      */
     protected function mapRoute($args)
     {
         $pattern = array_shift($args);
         $callable = array_pop($args);
-        $route = new \Slim\Route($pattern, $callable, $this->settings['routes.case_sensitive']);
+        $route = new \Slim2\Route($pattern, $callable, $this->settings['routes.case_sensitive']);
         $this->router->map($route);
         if (count($args) > 0) {
             $route->setMiddleware($args);
@@ -450,7 +450,7 @@ class Slim
     /**
      * Add generic route without associated HTTP method
      * @see    mapRoute()
-     * @return \Slim\Route
+     * @return \Slim2\Route
      */
     public function map()
     {
@@ -462,73 +462,73 @@ class Slim
     /**
      * Add GET route
      * @see    mapRoute()
-     * @return \Slim\Route
+     * @return \Slim2\Route
      */
     public function get()
     {
         $args = func_get_args();
 
-        return $this->mapRoute($args)->via(\Slim\Http\Request::METHOD_GET, \Slim\Http\Request::METHOD_HEAD);
+        return $this->mapRoute($args)->via(\Slim2\Http\Request::METHOD_GET, \Slim2\Http\Request::METHOD_HEAD);
     }
 
     /**
      * Add POST route
      * @see    mapRoute()
-     * @return \Slim\Route
+     * @return \Slim2\Route
      */
     public function post()
     {
         $args = func_get_args();
 
-        return $this->mapRoute($args)->via(\Slim\Http\Request::METHOD_POST);
+        return $this->mapRoute($args)->via(\Slim2\Http\Request::METHOD_POST);
     }
 
     /**
      * Add PUT route
      * @see    mapRoute()
-     * @return \Slim\Route
+     * @return \Slim2\Route
      */
     public function put()
     {
         $args = func_get_args();
 
-        return $this->mapRoute($args)->via(\Slim\Http\Request::METHOD_PUT);
+        return $this->mapRoute($args)->via(\Slim2\Http\Request::METHOD_PUT);
     }
 
     /**
      * Add PATCH route
      * @see    mapRoute()
-     * @return \Slim\Route
+     * @return \Slim2\Route
      */
     public function patch()
     {
         $args = func_get_args();
 
-        return $this->mapRoute($args)->via(\Slim\Http\Request::METHOD_PATCH);
+        return $this->mapRoute($args)->via(\Slim2\Http\Request::METHOD_PATCH);
     }
 
     /**
      * Add DELETE route
      * @see    mapRoute()
-     * @return \Slim\Route
+     * @return \Slim2\Route
      */
     public function delete()
     {
         $args = func_get_args();
 
-        return $this->mapRoute($args)->via(\Slim\Http\Request::METHOD_DELETE);
+        return $this->mapRoute($args)->via(\Slim2\Http\Request::METHOD_DELETE);
     }
 
     /**
      * Add OPTIONS route
      * @see    mapRoute()
-     * @return \Slim\Route
+     * @return \Slim2\Route
      */
     public function options()
     {
         $args = func_get_args();
 
-        return $this->mapRoute($args)->via(\Slim\Http\Request::METHOD_OPTIONS);
+        return $this->mapRoute($args)->via(\Slim2\Http\Request::METHOD_OPTIONS);
     }
 
     /**
@@ -556,7 +556,7 @@ class Slim
     /*
      * Add route for any HTTP method
      * @see    mapRoute()
-     * @return \Slim\Route
+     * @return \Slim2\Route
      */
     public function any()
     {
@@ -579,7 +579,7 @@ class Slim
      *
      * 2. When invoking the handler:
      *
-     * If the $callable parameter is null, Slim assumes you want
+     * If the $callable parameter is null, Slim2 assumes you want
      * to invoke an already-registered handler. If the handler has been
      * registered and is callable, it is invoked and sends a 404 HTTP Response
      * whose body is the output of the Not Found handler.
@@ -616,7 +616,7 @@ class Slim
      *
      * 2. When invoking the handler:
      *
-     * If the $argument parameter is not callable, Slim assumes you want
+     * If the $argument parameter is not callable, Slim2 assumes you want
      * to invoke an already-registered handler. If the handler has been
      * registered and is callable, it is invoked and passed the caught Exception
      * as its one and only argument. The error handler's output is captured
@@ -665,7 +665,7 @@ class Slim
 
     /**
      * Get a reference to the Environment object
-     * @return \Slim\Environment
+     * @return \Slim2\Environment
      */
     public function environment()
     {
@@ -674,7 +674,7 @@ class Slim
 
     /**
      * Get the Request object
-     * @return \Slim\Http\Request
+     * @return \Slim2\Http\Request
      */
     public function request()
     {
@@ -683,7 +683,7 @@ class Slim
 
     /**
      * Get the Response object
-     * @return \Slim\Http\Response
+     * @return \Slim2\Http\Response
      */
     public function response()
     {
@@ -692,7 +692,7 @@ class Slim
 
     /**
      * Get the Router object
-     * @return \Slim\Router
+     * @return \Slim2\Router
      */
     public function router()
     {
@@ -702,23 +702,23 @@ class Slim
     /**
      * Get and/or set the View
      *
-     * This method declares the View to be used by the Slim application.
-     * If the argument is a string, Slim will instantiate a new object
+     * This method declares the View to be used by the Slim2 application.
+     * If the argument is a string, Slim2 will instantiate a new object
      * of the same class. If the argument is an instance of View or a subclass
-     * of View, Slim will use the argument as the View.
+     * of View, Slim2 will use the argument as the View.
      *
      * If a View already exists and this method is called to create a
      * new View, data already set in the existing View will be
      * transferred to the new View.
      *
-     * @param  string|\Slim\View $viewClass The name or instance of a \Slim\View subclass
-     * @return \Slim\View
+     * @param  string|\Slim2\View $viewClass The name or instance of a \Slim2\View subclass
+     * @return \Slim2\View
      */
     public function view($viewClass = null)
     {
         if (!is_null($viewClass)) {
             $existingData = is_null($this->view) ? array() : $this->view->getData();
-            if ($viewClass instanceOf \Slim\View) {
+            if ($viewClass instanceOf \Slim2\View) {
                 $this->view = $viewClass;
             } else {
                 $this->view = new $viewClass();
@@ -780,7 +780,7 @@ class Slim
                 $this->halt(304);
             }
         } else {
-            throw new \InvalidArgumentException('Slim::lastModified only accepts an integer UNIX timestamp value.');
+            throw new \InvalidArgumentException('Slim2::lastModified only accepts an integer UNIX timestamp value.');
         }
     }
 
@@ -804,7 +804,7 @@ class Slim
     {
         //Ensure type is correct
         if (!in_array($type, array('strong', 'weak'))) {
-            throw new \InvalidArgumentException('Invalid Slim::etag type. Expected "strong" or "weak".');
+            throw new \InvalidArgumentException('Invalid Slim2::etag type. Expected "strong" or "weak".');
         }
 
         //Set etag value
@@ -893,7 +893,7 @@ class Slim
 
         // Decode if encrypted
         if ($this->config('cookies.encrypt')) {
-            $value = \Slim\Http\Util::decodeSecureCookie(
+            $value = \Slim2\Http\Util::decodeSecureCookie(
                 $value,
                 $this->config('cookies.secret_key'),
                 $this->config('cookies.cipher'),
@@ -906,7 +906,7 @@ class Slim
 
         /*
          * transform $value to @return doc requirement.
-         * \Slim\Http\Util::decodeSecureCookie -  is able
+         * \Slim2\Http\Util::decodeSecureCookie -  is able
          * to return false and we have to cast it to null.
          */
         return $value === false ? null : $value;
@@ -958,7 +958,7 @@ class Slim
      * with a new, empty, auto-expiring Cookie. This method's arguments must match
      * the original Cookie's respective arguments for the original Cookie to be
      * removed. If any of this method's arguments are omitted or set to NULL, the
-     * default Cookie setting values (set during Slim::init) will be used instead.
+     * default Cookie setting values (set during Slim2::init) will be used instead.
      *
      * @param string    $name       The cookie name
      * @param string    $path       The path on the server in which the cookie will be available on
@@ -983,10 +983,10 @@ class Slim
     *******************************************************************************/
 
     /**
-     * Get the absolute path to this Slim application's root directory
+     * Get the absolute path to this Slim2 application's root directory
      *
-     * This method returns the absolute path to the Slim application's
-     * directory. If the Slim application is installed in a public-accessible
+     * This method returns the absolute path to the Slim2 application's
+     * directory. If the Slim2 application is installed in a public-accessible
      * sub-directory, the sub-directory path will be included. This method
      * will always return an absolute path WITH a trailing slash.
      *
@@ -1013,11 +1013,11 @@ class Slim
      * The thrown exception will be caught in application's `call()` method
      * and the response will be sent as is to the HTTP client.
      *
-     * @throws \Slim\Exception\Stop
+     * @throws \Slim2\Exception\Stop
      */
     public function stop()
     {
-        throw new \Slim\Exception\Stop();
+        throw new \Slim2\Exception\Stop();
     }
 
     /**
@@ -1047,12 +1047,12 @@ class Slim
      * the router's current iteration to stop and continue to the subsequent route if available.
      * If no subsequent matching routes are found, a 404 response will be sent to the client.
      *
-     * @throws \Slim\Exception\Pass
+     * @throws \Slim2\Exception\Pass
      */
     public function pass()
     {
         $this->cleanBuffer();
-        throw new \Slim\Exception\Pass();
+        throw new \Slim2\Exception\Pass();
     }
 
     /**
@@ -1262,9 +1262,9 @@ class Slim
      * This method prepends new middleware to the application middleware stack.
      * The argument must be an instance that subclasses Slim_Middleware.
      *
-     * @param \Slim\Middleware
+     * @param \Slim2\Middleware
      */
-    public function add(\Slim\Middleware $newMiddleware)
+    public function add(\Slim2\Middleware $newMiddleware)
     {
         if(in_array($newMiddleware, $this->middleware)) {
             $middleware_class = get_class($newMiddleware);
@@ -1282,18 +1282,18 @@ class Slim
     /**
      * Run
      *
-     * This method invokes the middleware stack, including the core Slim application;
+     * This method invokes the middleware stack, including the core Slim2 application;
      * the result is an array of HTTP status, header, and body. These three items
      * are returned to the HTTP client.
      */
     public function run()
     {
-        set_error_handler(array('\Slim\Slim', 'handleErrors'));
+        set_error_handler(array('\Slim2\Slim2', 'handleErrors'));
 
         //Apply final outer middleware layers
         if ($this->config('debug')) {
             //Apply pretty exceptions only in debug to avoid accidental information leakage in production
-            $this->add(new \Slim\Middleware\PrettyExceptions());
+            $this->add(new \Slim2\Middleware\PrettyExceptions());
         }
 
         //Invoke middleware and application stack
@@ -1303,15 +1303,15 @@ class Slim
         list($status, $headers, $body) = $this->response->finalize();
 
         // Serialize cookies (with optional encryption)
-        \Slim\Http\Util::serializeCookies($headers, $this->response->cookies, $this->settings);
+        \Slim2\Http\Util::serializeCookies($headers, $this->response->cookies, $this->settings);
 
         //Send headers
         if (headers_sent() === false) {
             //Send status
             if (strpos(PHP_SAPI, 'cgi') === 0) {
-                header(sprintf('Status: %s', \Slim\Http\Response::getMessageForCode($status)));
+                header(sprintf('Status: %s', \Slim2\Http\Response::getMessageForCode($status)));
             } else {
-                header(sprintf('HTTP/%s %s', $this->config('http.version'), \Slim\Http\Response::getMessageForCode($status)));
+                header(sprintf('HTTP/%s %s', $this->config('http.version'), \Slim2\Http\Response::getMessageForCode($status)));
             }
 
             //Send headers
@@ -1357,7 +1357,7 @@ class Slim
                     if ($dispatched) {
                         break;
                     }
-                } catch (\Slim\Exception\Pass $e) {
+                } catch (\Slim2\Exception\Pass $e) {
                     continue;
                 }
             }
@@ -1366,7 +1366,7 @@ class Slim
             }
             $this->applyHook('slim.after.router');
             $this->stop();
-        } catch (\Slim\Exception\Stop $e) {
+        } catch (\Slim2\Exception\Stop $e) {
             $this->response()->write(ob_get_clean());
         } catch (\Exception $e) {
             if ($this->config('debug')) {
@@ -1376,7 +1376,7 @@ class Slim
                 try {
                     $this->response()->write(ob_get_clean());
                     $this->error($e);
-                } catch (\Slim\Exception\Stop $e) {
+                } catch (\Slim2\Exception\Stop $e) {
                     // Do nothing
                 }
             }
@@ -1391,7 +1391,7 @@ class Slim
      * Convert errors into ErrorException objects
      *
      * This method catches PHP errors and converts them into \ErrorException objects;
-     * these \ErrorException objects are then thrown and caught by Slim's
+     * these \ErrorException objects are then thrown and caught by Slim2's
      * built-in or custom error handlers.
      *
      * @param  int            $errno   The numeric type of the Error

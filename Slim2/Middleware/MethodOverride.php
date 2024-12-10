@@ -1,13 +1,13 @@
 <?php
 /**
- * Slim - a micro PHP 5 framework
+ * Slim2 - a micro PHP 5 framework
  *
  * @author      Josh Lockhart <info@slimframework.com>
  * @copyright   2011-2017 Josh Lockhart
  * @link        http://www.slimframework.com
  * @license     http://www.slimframework.com/license
  * @version     2.6.4
- * @package     Slim
+ * @package     Slim2
  *
  * MIT LICENSE
  *
@@ -30,23 +30,23 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-namespace Slim\Middleware;
+namespace Slim2\Middleware;
 
  /**
   * HTTP Method Override
   *
-  * This is middleware for a Slim application that allows traditional
+  * This is middleware for a Slim2 application that allows traditional
   * desktop browsers to submit pseudo PUT and DELETE requests by relying
   * on a pre-determined request parameter. Without this middleware,
   * desktop browsers are only able to submit GET and POST requests.
   *
   * This middleware is included automatically!
   *
-  * @package    Slim
+  * @package    Slim2
   * @author     Josh Lockhart
   * @since      1.6.0
   */
-class MethodOverride extends \Slim\Middleware
+class MethodOverride extends \Slim2\Middleware
 {
     /**
      * @var array
@@ -65,10 +65,10 @@ class MethodOverride extends \Slim\Middleware
     /**
      * Call
      *
-     * Implements Slim middleware interface. This method is invoked and passed
+     * Implements Slim2 middleware interface. This method is invoked and passed
      * an array of environment variables. This middleware inspects the environment
      * variables for the HTTP method override parameter; if found, this middleware
-     * modifies the environment settings so downstream middleware and/or the Slim
+     * modifies the environment settings so downstream middleware and/or the Slim2
      * application will treat the request with the desired HTTP method.
      *
      * @return array[status, header, body]
@@ -82,7 +82,7 @@ class MethodOverride extends \Slim\Middleware
             $env['REQUEST_METHOD'] = strtoupper($env['HTTP_X_HTTP_METHOD_OVERRIDE']);
         } elseif (isset($env['REQUEST_METHOD']) && $env['REQUEST_METHOD'] === 'POST') {
             // HTML Form Override
-            $req = new \Slim\Http\Request($env);
+            $req = new \Slim2\Http\Request($env);
             $method = $req->post($this->settings['key']);
             if ($method) {
                 $env['slim.method_override.original_method'] = $env['REQUEST_METHOD'];
